@@ -7,7 +7,8 @@ class BookShelf extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
     shelfTitle: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    onBookUpdate: PropTypes.func.isRequired
   }
 
   listBooks(books) {
@@ -17,9 +18,8 @@ class BookShelf extends Component {
           <li key={'li_'+ book.id}>
             <Book
               key={book.id}
-              bookCoverUrl={book.imageLinks.smallThumbnail}
-              bookTitle={book.title}
-              bookAuthors={book.authors}
+              book={book}
+              onBookUpdate={this.props.onBookUpdate}
             />
           </li>
         )}

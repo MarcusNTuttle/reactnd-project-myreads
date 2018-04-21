@@ -7,7 +7,8 @@ class Library extends Component {
 
   static propTypes = {
     books: PropTypes.array.isRequired,
-    libraryTitle: PropTypes.string.isRequired
+    libraryTitle: PropTypes.string.isRequired,
+    onBookUpdate: PropTypes.func.isRequired
   }
 
   state = {
@@ -58,7 +59,8 @@ class Library extends Component {
             key={shelf.id} 
             id={shelf.id} 
             shelfTitle={shelf.title} 
-            books={books.filter(book => book.shelf === shelf.id)} />
+            books={books.filter(book => book.shelf === shelf.id)}
+            onBookUpdate={this.props.onBookUpdate} />
         )}
 
         </div>

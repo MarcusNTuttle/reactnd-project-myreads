@@ -7,7 +7,7 @@ import Library from './Library'
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
   }
 
   componentDidMount() {
@@ -19,6 +19,10 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateBookLocation(book, shelf) {
+    BooksAPI.update(book, shelf);
+  }
+
   render() {
     const { books } = this.state
 
@@ -26,7 +30,10 @@ class BooksApp extends React.Component {
       <div className="app">
 
         <Route exact path='/' render={() => (
-          <Library books={this.state.books} libraryTitle="My Reads" />
+          <Library 
+            books={this.state.books} 
+            libraryTitle="My Reads" 
+            onBookUpdate={this.updateBookLocation}/>
         )} />
 
         <Route path='/search' render={({ history }) => (

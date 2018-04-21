@@ -5,24 +5,43 @@ import PropTypes from 'prop-types'
 class Book extends Component {
 
   static propTypes = {
-    bookTitle: PropTypes.string.isRequired,
-    bookAuthors: PropTypes.array.isRequired,
-    bookCoverUrl: PropTypes.string.isRequired
+    book: PropTypes.object.isRequired,
+    onBookUpdate: PropTypes.func.isRequired
   }
 
 
   state = {
-    currentShelf: 'currentlyReading'
+    currentShelf: this.props.book.shelf
   }
 
+  componentWillReceiveProps() {
+    this.setState({
+      currentShelf: this.props.book.shelf
+    });
+  }
+  
+
+  handleSelect = (event) => {
+    event.preventDefault()
+
+    if (this.props.onBookUpdate) {
+      this.props.onBookUpdate(this.props.book, event.target.value)
+    }
+  }
+
+
+
   render () {
+
+    const { book, onBookUpdate } = this.props;
+
     return (
 
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url('${this.props.bookCoverUrl}')`}}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url('${book.imageLinks.smallThumbnail}')`}}></div>
           <div className="book-shelf-changer">
-            <select>
+            <select onChange={this.handleSelect}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
@@ -31,8 +50,8 @@ class Book extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{this.props.bookTitle}</div>
-        <div className="book-authors">{this.props.bookAuthors}</div>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
       </div>
 
     )
