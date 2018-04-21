@@ -54,7 +54,11 @@ class Library extends Component {
         <div className="list-books-content">
 
         {bookShelves.map((shelf) => 
-            <BookShelf key={shelf.id} id={shelf.id} shelfTitle={shelf.title} books={books} />
+          <BookShelf 
+            key={shelf.id} 
+            id={shelf.id} 
+            shelfTitle={shelf.title} 
+            books={books.filter(book => book.shelf === shelf.id)} />
         )}
 
         </div>
