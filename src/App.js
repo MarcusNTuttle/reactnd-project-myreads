@@ -10,7 +10,7 @@ class BooksApp extends React.Component {
     books: [],
   }
 
-  componentDidMount() {
+  componentWillMount() {
     BooksAPI.getAll()
     .then((books) => {
       this.setState(() => (
@@ -19,8 +19,16 @@ class BooksApp extends React.Component {
     })
   }
 
-  updateBookLocation(book, shelf) {
+  updateBookLocation = (book, shelf) => {
     BooksAPI.update(book, shelf);
+
+    BooksAPI.getAll()
+      .then((books) => {
+        this.setState(() => (
+          { books }
+        ))
+      })
+
   }
 
   render() {
@@ -39,7 +47,7 @@ class BooksApp extends React.Component {
         <Route path='/search' render={({ history }) => (
           <div className="search-books">
             <div className="search-books-bar">
-              <Link to='/' className="close-search">Close</Link>
+              <Link to='/' className="close-search">Close</Link>          
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
