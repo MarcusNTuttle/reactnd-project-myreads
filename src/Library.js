@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import BookShelf from './BookShelf'
+import ListBooks from './ListBooks'
 
 class Library extends Component {
 
@@ -55,12 +55,16 @@ class Library extends Component {
         <div className="list-books-content">
 
         {bookShelves.map((shelf) => 
-          <BookShelf 
-            key={shelf.id} 
-            id={shelf.id} 
-            shelfTitle={shelf.title} 
-            books={books.filter(book => book.shelf === shelf.id)}
-            onBookUpdate={this.props.onBookUpdate} />
+          <div className="bookshelf" key={"bookshelf-" + shelf.id} >
+            <h2 className="bookshelf-title" key={"bookshelf-title-" + shelf.id} > {shelf.title}</h2>
+            <div className="bookshelf-books" key={"bookshelf-books-" + shelf.id} >
+              <ListBooks 
+              key={shelf.id}
+              id={shelf.id} 
+              books={books.filter(book => book.shelf === shelf.id)} 
+              onBookUpdate={this.props.onBookUpdate} />
+            </div>
+          </div>
         )}
 
         </div>
