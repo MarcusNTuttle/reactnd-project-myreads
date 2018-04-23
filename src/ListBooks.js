@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import Book from './Book'
 import PropTypes from 'prop-types'
 
@@ -7,12 +6,12 @@ class ListBooks extends Component {
 
   static propTypes = {
     books: PropTypes.array.isRequired,
-    id: PropTypes.string.isRequired,
     onBookUpdate: PropTypes.func.isRequired
   }
 
   render () {
     const { books } = this.props;
+
     return (
       <ol className="books-grid">
         {books.map(book =>
@@ -24,10 +23,9 @@ class ListBooks extends Component {
             />
           </li>
         )}
-      </ol >
+      </ol>
     )
   }
-
 }
 
 export default ListBooks

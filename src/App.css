@@ -172,3 +172,12 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+/* Loading icon */
+
+.Loading-icon {
+  background: url('./icons/loading.gif') no-repeat;
+  width: 800px;
+  height: 600px;
+  margin: auto;
+}

@@ -7,33 +7,46 @@ import PropTypes from 'prop-types'
 class AddBook extends Component {
 
   static propTypes = {
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    onBookUpdate: PropTypes.func.isRequired,
+    getNewBooks: PropTypes.func.isRequired,
+    updateBooks: PropTypes.func.isRequired
   }
 
   state = {
-    query: ''
+    query: '',
   }
 
+  componentWillUnmount(){
+    this.props.updateBooks();
+  }
+
+  /* Update the query state and books state based on user input from form */
   updateQuery = (query) => {
-    this.setState(() => ({
-      query: query.trim()
-    }))
+    if (query !== '') {
+      this.props.getNewBooks(query)
+
+      this.setState(() => ({
+        query: query
+      }))
+    } else {
+      this.setState(() => ({
+        query: ''
+      }))
+      this.props.updateBooks();
+    }
   }
 
-  clearQuery = () => {
-    this.updateQuery('');
-  }
 
 
   render() {
     const { query } = this.state
-    const { books } = this.props
+    const { books, onBookUpdate } = this.props
 
     return (    
       <div className="search-books">
-        {console.log(query)}
         <div className="search-books-bar">
-          <Link to='/' className="close-search">Close</Link>
+          <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
             <input type="text" 
               placeholder="Search by title or author"
@@ -44,7 +57,7 @@ class AddBook extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <listBooks books={books} />
+            <ListBooks books={books} onBookUpdate={onBookUpdate} />
           </ol>
         </div>
       </div>
